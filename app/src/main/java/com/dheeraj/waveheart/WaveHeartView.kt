@@ -1,6 +1,7 @@
 package com.dheeraj.waveheart
 
 import android.animation.ValueAnimator
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
@@ -9,7 +10,11 @@ import android.graphics.Path
 import android.util.AttributeSet
 import android.view.View
 import android.view.animation.LinearInterpolator
+import kotlin.math.abs
 import kotlin.math.min
+import kotlin.math.pow
+import kotlin.math.sin
+import kotlin.math.sqrt
 
 
 /**
@@ -45,7 +50,6 @@ class WaveHeartView @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-
         val path = Path()
         val centerY = height / 2f
         val centerX = width / 2f
@@ -63,7 +67,7 @@ class WaveHeartView @JvmOverloads constructor(
             val rad = 3.0 - x * x
             if (rad < 0) continue
 
-            val y = Math.pow(Math.abs(x), 2.0/3) + 0.9 * Math.sin(k * x) * Math.sqrt(rad)
+            val y = abs(x).pow(2.0 / 3) + 0.9 * sin(k * x) * sqrt(rad)
 
             val px = centerX + (x * scale).toFloat()
             val py = centerY - (y * scale).toFloat()
